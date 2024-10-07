@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Results</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Results</h1>
+        <nav class="navbar">
+            <a href="{{url_for ('home')}}">Input</a>
+            <a href="{{url_for ('graphs')}}">Graphs</a>
+            <a href="{{url_for ('show_text')}}" class="active">AI Results</a>
+        </nav>
+        <div class="content">
+            <div class="ai-results">
+                <p>{{ text_content }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
