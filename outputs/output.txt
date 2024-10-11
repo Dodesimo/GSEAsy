@@ -1,0 +1,239 @@
+Term,nes
+Cap-dependent translation initiation,upregulated
+"Activation of mRNA upon binding of the cap-binding complex and eIFs, and subsequent binding to 43S",upregulated
+Activation of BH3-only proteins,upregulated
+HIV genome transcription,downregulated
+Angiotensin II-stimulated signaling through G-proteins and beta-arrestin,downregulated
+Protein export,downregulated
+NCAM signaling for neurite out-growth,downregulated
+Signaling by SCF-KIT,downregulated
+Mitochondrial gene expression,downregulated
+Wnt/calcium/cyclic GMP pathway,downregulated
+Netrin-mediated signaling events,downregulated
+IGF1 signaling pathway,downregulated
+Regulation of NFAT transcription factors,downregulated
+Bioactive peptide-induced signaling pathway,downregulated
+SHC1 events in ERBB2 signaling,downregulated
+T cell receptor signaling in naive CD4+ T cells,downregulated
+BDNF signaling pathway,downregulated
+PI3K class IB pathway in neutrophils,downregulated
+Nerve growth factor (NGF) pathway,downregulated
+Type II interferon signaling (interferon-gamma),downregulated
+Messenger RNA decay by 5' to 3' exoribonuclease,downregulated
+Signaling events mediated by focal adhesion kinase,downregulated
+Vitamin B12 metabolism,downregulated
+Rac1 cell motility signaling pathway,downregulated
+Pathogenic Escherichia coli infection,downregulated
+"Immune system signaling by interferons, interleukins, prolactin, and growth hormones",downregulated
+Validated nuclear estrogen receptor alpha network,downregulated
+Protein processing in the endoplasmic reticulum,downregulated
+ADP signalling through P2Y purinoceptor 12,downregulated
+ERBB1 internalization pathway,downregulated
+Estrogen receptor transcription factor targets,downregulated
+Renal cell carcinoma,downregulated
+CXCR4 signaling pathway,downregulated
+Aldosterone-regulated sodium reabsorption,downregulated
+EGF receptor (ErbB1) signaling pathway,downregulated
+Downregulation of SMAD2/3-SMAD4 transcriptional activity,downregulated
+Mammalian calpain regulation of cell motility,downregulated
+Signaling by FGFR1 mutants,downregulated
+Signaling by FGFR1 fusion mutants,downregulated
+Skeletal myogenesis control by HDAC and calcium/calmodulin-dependent kinase (CaMK),downregulated
+RNA polymerase,downregulated
+Serotonin receptor 4/6/7 and NR3C signaling,downregulated
+Collecting duct acid secretion,downregulated
+Deadenylation-dependent mRNA decay,downregulated
+EGF/EGFR signaling pathway,downregulated
+Fas signaling pathway,downregulated
+Opioid signaling,downregulated
+Signaling events mediated by VEGFR1 and VEGFR2,downregulated
+FRS2-mediated cascade,downregulated
+ERK1/ERK2 MAPK pathway,downregulated
+S1P/S1P1 pathway,downregulated
+Notch signaling pathway,downregulated
+SMAD2/3 nuclear pathway,downregulated
+PIP2 hydrolysis,downregulated
+MicroRNAs in muscle cell differentiation,downregulated
+Messenger RNA capping,downregulated
+T cell receptor signaling in naive CD8+ T cells,downregulated
+ERBB signaling pathway,downregulated
+Gap junction pathway,downregulated
+CDO in myogenesis,downregulated
+p38 alpha/beta MAPK downstream pathway,downregulated
+Messenger RNA splicing: minor pathway,downregulated
+Vibrio cholerae infection,downregulated
+Sprouty regulation of tyrosine kinase signals,downregulated
+Dual incision reaction in TC-NER,downregulated
+G-protein-mediated events,downregulated
+Destabilization of mRNA by butyrate response factor 1 (BRF1),downregulated
+Malaria,downregulated
+SHC1 events in EGFR signaling,downregulated
+RNA degradation,downregulated
+VEGFR1 pathway,downregulated
+ATF2 transcription factor network,downregulated
+HNF3A pathway,downregulated
+ERBB2/ERBB3 signaling events,downregulated
+Signaling to ERKs,downregulated
+FSH signaling pathway,downregulated
+Calcineurin in effects in keratinocyte differentiation,downregulated
+NFAT involvement in hypertrophy of the heart,downregulated
+Fc epsilon receptor I signaling pathway,downregulated
+Class B GPCRs (secretin family receptors),downregulated
+Thromboxane A2 receptor signaling,downregulated
+TRAF6-mediated IRF7 activation,downregulated
+Plasma membrane estrogen receptor signaling,downregulated
+Acute myeloid leukemia,downregulated
+Selective expression of chemokine receptors during T-cell polarization,downregulated
+Interleukin receptor SHC signaling,downregulated
+Thymic stromal lymphopoietin (TSLP) pathway,downregulated
+Viral myocarditis,downregulated
+FGF signaling pathway,downregulated
+Chromatin remodeling by hSWI/SNF ATP-dependent complexes,downregulated
+Long-term depression,downregulated
+Nef in HIV-1 replication and disease pathogenesis,downregulated
+Long-term potentiation,downregulated
+Plexin D1 signaling,downregulated
+Ephrin receptor A forward pathway,downregulated
+FRA pathway,downregulated
+p38-alpha and p38-beta regulation,downregulated
+S1P/S1P3 pathway,downregulated
+p38 MK2 pathway,downregulated
+Interleukin-7 signaling pathway,downregulated
+Interferon-beta enhancer pathway,downregulated
+PDGFA signaling pathway,downregulated
+Nephrin interactions,downregulated
+Nucleotide excision repair,downregulated
+Melanogenesis,downregulated
+Calcineurin-dependent NFAT signaling role in lymphocytes,downregulated
+RAC1 activity regulation,downregulated
+ERK5 role in neuronal survival pathway,downregulated
+Transcriptional activity of SMAD2/SMAD3-SMAD4 heterotrimer,downregulated
+Signaling by interleukins,downregulated
+Serotonin HTR1 group and FOS pathway,downregulated
+GATA3-mediated activation of Th2 cytokine expression,downregulated
+ERBB2 role in signal transduction and oncology,downregulated
+Interferon-gamma signaling pathway,downregulated
+Mitotic G2-G2/M phases,downregulated
+Signaling by constitutively active EGFR,downregulated
+Thyroid-stimulating hormone signaling pathway,downregulated
+Leptin signaling pathway,downregulated
+ERBB1 downstream pathway,downregulated
+Differentiation pathway in PC12 cells,downregulated
+Interleukin-12-mediated signaling events,downregulated
+Immunoregulatory interactions between a lymphoid and a non-lymphoid cell,downregulated
+Signaling of hepatocyte growth factor receptor,downregulated
+Interferon alpha/beta signaling,downregulated
+SHP2 signaling,downregulated
+Signaling by FGFR mutants,downregulated
+Ephrin receptor B forward pathway,downregulated
+Regulatory RNA pathways,downregulated
+Cell differentiation by G alpha (i/o) pathway inferred from mouse Neuro2A model,downregulated
+Neurotrophic factor-mediated Trk receptor signaling,downregulated
+MEF2D role in T cell apoptosis,downregulated
+Collagen binding in corneal epithelia mediated by Erk and PI-3 Kinase,downregulated
+Interleukin-5 regulation of apoptosis,downregulated
+TSH regulation of gene expression,downregulated
+Telomerase regulation,downregulated
+Signaling pathway from G-protein families,downregulated
+"Interleukin-3, interleukin-5, and GM-CSF signaling",downregulated
+Binding of chemokines to chemokine receptors,downregulated
+Fc epsilon receptor I signaling in mast cells,downregulated
+Reelin signaling pathway,downregulated
+VEGF signaling pathway,downregulated
+Heart development,downregulated
+Interleukin-3 signaling pathway,downregulated
+EPO receptor signaling,downregulated
+FRS2-mediated activation,downregulated
+Natural killer cell-mediated cytotoxicity,downregulated
+PI3K/PLC/TRK pathway,downregulated
+Signaling events mediated by PTP1B,downregulated
+AP-1 transcription factor network,downregulated
+HES/HEY pathway,downregulated
+PDGFB signaling pathway,downregulated
+Effect of METS on macrophage differentiation,downregulated
+T cell receptor calcium pathway,downregulated
+Proteasome complex,downregulated
+TPO signaling pathway,downregulated
+MAPK/TRK pathway,downregulated
+Mechanisms of transcriptional repression by DNA methylation,downregulated
+TWEAK regulation of gene expression,downregulated
+Prion diseases,downregulated
+CD8/T cell receptor downstream pathway,downregulated
+Interleukin-9 regulation of target genes,downregulated
+Regular glucocorticoid receptor pathway,downregulated
+Growth hormone receptor signaling,downregulated
+GM-CSF-mediated signaling events,downregulated
+CD40L signaling pathway,downregulated
+PRC2 complex long-term gene silencing through modification of histone tails,downregulated
+p75 neurotrophin receptor signaling via NF-kB,downregulated
+Cadmium-induced DNA biosynthesis and proliferation in macrophages,downregulated
+Atypical NF-kappaB pathway,downregulated
+Acetylation and deacetylation of RelA in the nucleus,downregulated
+TNFR2 signaling pathway,downregulated
+Modulation of interferon signaling by chaperones,downregulated
+Bone remodeling,downregulated
+Cytosolic sensors of pathogen-associated DNA,downregulated
+AKT signaling pathway,downregulated
+4-1BB-dependent immune response,downregulated
+TRAF6 mediated NF-kB activation,downregulated
+TAK1 activates NF-kappaB by phosphorylation and activation of IKK complex,downregulated
+NF-kappaB signaling pathway,downregulated
+T cell receptor downstream signaling,downregulated
+Inhibition of activated T cell apoptosis by neuropeptides VIP and PACAP,downregulated
+TNF/stress-related signaling,downregulated
+NF-kappaB activation by non-typeable Hemophilus influenzae,downregulated
+Induction of apoptosis through DR3 and DR4/5 death receptors,downregulated
+CD40/CD40L signaling,downregulated
+Interleukin-23-mediated signaling events,downregulated
+EGF receptor transactivation by GPCRs in cardiac hypertrophy,downregulated
+Alpha-V beta-3 integrin/OPN pathway,downregulated
+Influence of Ras and Rho proteins on G1 to S transition,downregulated
+Tumor necrosis factor (TNF) pathway,downregulated
+MAPK signaling pathway,downregulated
+fMLP induced chemokine gene expression in HMC-1 cells,downregulated
+Trefoil factor initiation of mucosal healing,downregulated
+Signal transduction through IL-1R,downregulated
+Cytosolic DNA-sensing pathway,downregulated
+Signal transduction,downregulated
+Adaptive immune system,downregulated
+ATM pathway,downregulated
+RIG-I-like receptor signaling pathway,downregulated
+Systemic lupus erythematosus,downregulated
+TWEAK signaling pathway,downregulated
+Ceramide signaling pathway,downregulated
+LPA receptor mediated events,downregulated
+Mechanism of gene regulation by peroxisome proliferators via PPAR-alpha,downregulated
+HIV-1 Nef as negative effector of Fas and TNF,downregulated
+NOD signaling pathway,downregulated
+Leishmaniasis,downregulated
+RIG-I/MDA5-mediated induction of interferon-alpha/beta pathways,downregulated
+G alpha q pathway,downregulated
+Adipocytokine signaling pathway,downregulated
+Keratinocyte differentiation,downregulated
+RANKL signaling pathway,downregulated
+Apoptosis modulation and signaling,downregulated
+Shigellosis,downregulated
+Epithelial cell signaling in Helicobacter pylori infection,downregulated
+G alpha 13 pathway,downregulated
+Innate immune system,downregulated
+Seven transmembrane receptor signaling through beta-arrestin,downregulated
+Small cell lung cancer,downregulated
+TNF-alpha signaling pathway,downregulated
+Prolactin activation of MAPK signaling,downregulated
+Pathways in cancer,downregulated
+Signaling events mediated by HDAC class I,downregulated
+Signaling by NGF,downregulated
+Chronic myeloid leukemia,downregulated
+MAP kinase signaling pathway,downregulated
+Interleukin-1 regulation of extracellular matrix,downregulated
+p75 neurotrophin receptor-mediated signaling,downregulated
+Toll-like receptor signaling pathway regulation,downregulated
+Prostate cancer,downregulated
+Antigen-activated B-cell receptor generation of second messengers,downregulated
+Interleukin-4 signaling pathway,downregulated
+"TNF-alpha effects on cytokine activity, cell motility, and apoptosis",downregulated
+Activation of NF-kappaB in B cells,downregulated
+Toll receptor cascades,downregulated
+Apoptosis,downregulated
+Chagas disease,downregulated
+Downstream signaling events Of B cell receptor (BCR),downregulated
