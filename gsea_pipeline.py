@@ -116,7 +116,7 @@ def ai_analysis(data, cell_subtypes):
     csv_string = df.to_string(index=False)
     llm = ChatOpenAI(temperature=0, model="gpt-4o", api_key=os.getenv("KEY"))
     response = llm.invoke(
-        f"Given the following CSV of gene labels and whether they are upregulated or downregulated: \n\n{csv_string}\n\n, as well as that the cell type in question is \n\n{cell_subtypes}\n\n, and that TIM3 is knocked out, give a breakdown of biological significance by gene sets enriched and pose a potential mechanism.")
+        f"Given the following CSV of gene labels and whether they are upregulated or downregulated: \n\n{csv_string}\n\n, as well as that the cell type in question is \n\n{cell_subtypes}\n\n, and that TIM3 is knocked out, give a breakdown of biological significance by gene sets enriched and pose a potential mechanism. Write a coherent Markdown paragraph with no title.")
     print(response)
     response = str(response.content)
     output_file = os.path.abspath('outputs/llmoutput.txt')

@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, send_file
 import os
 from gsea_pipeline import initialize, read_annotation_data, meta_filter_and_adata_append, cell_filter, control_filter, run_diffexp, process_diffexp, run_gseapy, ai_analysis
 from dotenv import load_dotenv
+import markdown
 
 load_dotenv()
 
@@ -33,7 +34,7 @@ def graphs():
 
 @app.route('/show-text')
 def show_text():
-    with open(os.path.abspath('static/llmoutput.txt'), 'r') as file:
+    with open(os.path.abspath('outputs/llmoutput.txt'), 'r') as file:
         text_content = file.read()
     return render_template('ai-results.html', text_content=text_content)
 
