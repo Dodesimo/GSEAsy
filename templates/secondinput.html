@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input - Notion-like Dark Mode Site</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Input</h1>
+    <nav class="navbar">
+        <a href="{{url_for ('home')}}" class="active">Input</a>
+        <a href="{{url_for ('graphs')}}">Graphs</a>
+        <a href="{{url_for ('show_text')}}">AI Results</a>
+    </nav>
+    <div class="content">
+        <form id="data-form" action="{{url_for('second_submit')}}" method="POST" enctype="multipart/form-data">
+            <div class="input-group">
+                <label for="cell-subtypes">Cell Subtypes:</label>
+                <select id="cell-subtypes" name="cell-subtypes">
+                    {% for n in subtypes %}
+                    <option value="{{n}}">{{ n }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="groups">Cell Subtypes:</label>
+                <select id="groups" name="groups">
+                    {% for n in groups %}
+                    <option value="{{n}}">{{ n }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+
+
+    </div>
+</div>
+</body>
+</html>

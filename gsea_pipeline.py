@@ -8,6 +8,7 @@ import gseapy as gp
 import numpy as np
 from flask import Flask, render_template, request, redirect, url_for
 from langchain_openai import ChatOpenAI
+import glob
 
 from dotenv import load_dotenv
 
@@ -24,8 +25,8 @@ def initialize():
 
 
 def read_annotation_data():
-    adata = sc.read_csv(os.path.abspath('data/TIM3_counts.csv')).T
-    meta = pd.read_csv(os.path.abspath('data/TIM3_metadata.csv'))
+    adata = sc.read_csv(glob.glob(os.path.abspath('data/*_counts.csv'))[0]).T
+    meta = pd.read_csv(glob.glob(os.path.abspath('data/*_metadata.csv'))[0])
     return adata, meta
 
 

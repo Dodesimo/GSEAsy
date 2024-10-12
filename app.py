@@ -3,6 +3,7 @@ import os
 from gsea_pipeline import initialize, read_annotation_data, meta_filter_and_adata_append, cell_filter, control_filter, run_diffexp, process_diffexp, run_gseapy, ai_analysis
 from dotenv import load_dotenv
 import markdown
+import pandas as pd
 
 load_dotenv()
 
@@ -10,7 +11,7 @@ groups = ""
 cell_subtypes = ""
 
 app = Flask(__name__)
-
+app.config['UPLOAD_FOLDER'] = os.path.abspath("data")
 
 @app.route("/")
 def home():
@@ -42,7 +43,21 @@ def show_text():
 @app.route("/submit", methods=["POST", "GET"])
 def submit():
     if request.method == "POST":
+        meta, counts = request.files['metadata-file'], request.files['counts-file']
+        meta.save(os.path.join(app.config['UPLOAD_FOLDER'], meta.filename))
+        counts.save(os.path.join(app.config['UPLOAD_FOLDER'], counts.filename))
+        subtypes = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], meta.filename))['Cell_subtype'].unique().tolist()
+        groups = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], meta.filename))['group'].unique().tolist()
+
+    return render_template('secondinput.html', subtypes=subtypes, groups=groups)
+
+@app.route("/second_submit", methods=["POST", "GET"])
+def second_submit():
+    if request.method == "POST":
         global groups, cell_subtypes
-        groups, cell_subtypes = request.form['groups'], request.form['cell-subtypes'],
+        groups, cell_subtypes = request.form['groups'].split(".")[1], request.form['cell-subtypes']
         print(groups, cell_subtypes)
-    return render_template('input.html')
+
+    return graphs()
+
+
