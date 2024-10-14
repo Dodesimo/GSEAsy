@@ -7,19 +7,18 @@
     <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Graphs</h1>
-        <nav class="navbar">
-            <a href="{{url_for ('home')}}">Input</a>
-            <a href="{{url_for ('graphs')}}" class="active">Graphs</a>
-            <a href="{{url_for ('show_text')}}">AI Results</a>
-        </nav>
-        <div class="content">
-            <div class="graph">
-                <!-- Placeholder for graph -->
-                Graph will be displayed here
-            </div>
+<div class="container">
+    <h1>Graphs</h1>
+    <nav class="navbar">
+        <a href="{{url_for ('home')}}">Input</a>
+        <a href="{{url_for ('graphs')}}" class="active">Graphs</a>
+        <a href="{{url_for ('show_text')}}">AI Results</a>
+    </nav>
+    <div class="content">
+        <div>
+            <img src="{{url_for('static', filename='heatmap.png')}}" alt="Heat Map" style="width: 650px;">
         </div>
     </div>
+</div>
 </body>
 </html>

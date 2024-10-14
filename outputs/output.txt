@@ -36,8 +36,8 @@ Aldosterone-regulated sodium reabsorption,downregulated
 EGF receptor (ErbB1) signaling pathway,downregulated
 Downregulation of SMAD2/3-SMAD4 transcriptional activity,downregulated
 Mammalian calpain regulation of cell motility,downregulated
-Signaling by FGFR1 fusion mutants,downregulated
 Signaling by FGFR1 mutants,downregulated
+Signaling by FGFR1 fusion mutants,downregulated
 Skeletal myogenesis control by HDAC and calcium/calmodulin-dependent kinase (CaMK),downregulated
 RNA polymerase,downregulated
 Serotonin receptor 4/6/7 and NR3C signaling,downregulated
