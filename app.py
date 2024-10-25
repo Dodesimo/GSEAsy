@@ -12,8 +12,9 @@ matplotlib.use('Agg')
 
 load_dotenv()
 
-groups = ""
 cell_subtypes = ""
+control_group = ""
+knockout_group = ""
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.abspath("data")
@@ -30,8 +31,8 @@ def graphs():
     adata, meta = read_annotation_data()
     meta_filter_and_adata_append(adata, meta)
     cell_subtype = cell_filter(adata, cell_subtypes)
-    enhanced_cell_subtype = control_filter(cell_subtype, groups)
-    results = run_diffexp(enhanced_cell_subtype, groups)
+    enhanced_cell_subtype = control_filter(cell_subtype, control_group, knockout_group)
+    results = run_diffexp(enhanced_cell_subtype, control_group, knockout_group)
     results = process_diffexp(results)
     out = run_gseapy(results)
     ai_analysis(out, cell_subtypes)
@@ -77,8 +78,7 @@ def submit():
 @app.route("/second_submit", methods=["POST", "GET"])
 def second_submit():
     if request.method == "POST":
-        global groups, cell_subtypes
-        groups, cell_subtypes = request.form['groups'].split(".")[1], request.form['cell-subtypes']
-        print(groups, cell_subtypes)
+        global control_group, knockout_group, cell_subtypes
+        control_group, knockout_group, cell_subtypes = request.form['control_group'], request.form['knockout_group'], request.form['cell-subtypes']
 
     return graphs()

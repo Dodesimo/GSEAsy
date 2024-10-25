@@ -42,17 +42,17 @@ def cell_filter(adata, subtype):
     return cell_subtype
 
 
-def control_filter(cell_subtype, gene):
+def control_filter(cell_subtype, control_group, knockout_group):
 
-    Ko = 'KO.' + gene
-    control = 'control.' + gene
+    Ko = knockout_group
+    control = control_group
 
     cell_subtype.obs.index = cell_subtype.obs.index.astype(str)
     enhanced_cell_subtype = cell_subtype[(cell_subtype.obs['group'] == Ko) | (cell_subtype.obs['group'] == control), :]
     return enhanced_cell_subtype
 
 
-def run_diffexp(enhanced_cell_subtype, gene):
+def run_diffexp(enhanced_cell_subtype, control_group, knockout_group):
     #print("Enhanced cell subtype", enhanced_cell_subtype)
     counts = pd.DataFrame(enhanced_cell_subtype.X, columns=enhanced_cell_subtype.var_names)
     #print(counts)
@@ -67,8 +67,8 @@ def run_diffexp(enhanced_cell_subtype, gene):
     sc.pp.filter_genes(dds, min_cells=1)
     dds.deseq2()
 
-    Ko = 'KO.' + gene
-    control = 'control.' + gene
+    Ko = knockout_group
+    control = control_group
     stat_res = DeseqStats(dds, contrast=('group', Ko, control))
 
     stat_res.summary()

@@ -25,8 +25,16 @@
                 </select>
             </div>
             <div class="input-group">
-                <label for="groups">Cell Subtypes:</label>
-                <select id="groups" name="groups">
+                <label for="control_group">Control Cell Subtype:</label>
+                <select id="control_group" name="control_group">
+                    {% for n in groups %}
+                    <option value="{{n}}">{{ n }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="knockout_group">Knockout Cell Subtype:</label>
+                <select id="knockout_group" name="knockout_group">
                     {% for n in groups %}
                     <option value="{{n}}">{{ n }}</option>
                     {% endfor %}
