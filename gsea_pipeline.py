@@ -90,21 +90,22 @@ def run_gseapy(results):
     ranking = ranking.reset_index(drop=True)
     ranking['Gene'] = ranking['Gene'].str.upper()
     pre_res = gp.prerank(rnk=ranking, gene_sets='BioPlanet_2019', seed=6)
-
     out = []
 
     for term in list(pre_res.results):
         out.append([term,
                     pre_res.results[term]['fdr'],
                     pre_res.results[term]['es'],
-                    pre_res.results[term]['nes']])
-    out_df = pd.DataFrame(out, columns=['Term', 'fdr', 'es', 'nes']).sort_values('nes').reset_index(drop=True)
+                    pre_res.results[term]['nes'],
+                    pre_res.results[term]['lead_genes']]),
+
+    out_df = pd.DataFrame(out, columns=['Term', 'fdr', 'es', 'nes', 'lead_genes']).sort_values('nes').reset_index(drop=True)
     out_df = out_df[out_df['fdr'] < 0.1]
     out_df = out_df.sort_values('nes', ascending=False)
     out_df['nes'] = out_df['nes'].apply(
         lambda x: 'upregulated' if x > 1 else ('downregulated' if x < -1 else 'neutral'))
     out_df_filtered = out_df.loc[out_df['nes'] != 'neutral']
-    out_df_filtered = out_df_filtered[['Term', 'nes']]
+    out_df_filtered = out_df_filtered[['Term', 'nes', 'lead_genes']]
     out_df_filtered.to_csv(os.path.abspath("outputs/output.csv"), index=False)
     out_df_filtered.to_csv(os.path.abspath("outputs/output.txt"), sep=',', index=False)
     return out_df_filtered
@@ -117,7 +118,7 @@ def ai_analysis(data, cell_subtypes):
     csv_string = df.to_string(index=False)
     llm = ChatOpenAI(temperature=0, model="gpt-4o", api_key=os.getenv("KEY"))
     response = llm.invoke(
-        f"Given the following CSV of gene labels and whether they are upregulated or downregulated: \n\n{csv_string}\n\n, as well as that the cell type in question is \n\n{cell_subtypes}\n\n, and that TIM3 is knocked out, give a breakdown of biological significance by gene sets enriched and pose a potential mechanism. Write a coherent Markdown paragraph with no title.")
+        f"Given the following CSV of gene groups, whether they are upregulated or downregulated, as well as corresponding genes: \n\n{csv_string}\n\n, as well as that the cell type in question is \n\n{cell_subtypes}\n\n, and that TIM3 is knocked out, give a breakdown of biological significance by gene sets enriched and pose a potential mechanism. Mention specific genes and relevant literature and produce a one page research paragraph with no title.")
     print(response)
     response = str(response.content)
     output_file = os.path.abspath('outputs/llmoutput.txt')
