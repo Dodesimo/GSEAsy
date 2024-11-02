@@ -8,6 +8,9 @@ import markdown
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from flask import abort, render_template, request
+from werkzeug.exceptions import HTTPException
+
 matplotlib.use('Agg')
 
 load_dotenv()
@@ -24,16 +27,31 @@ app.config['UPLOAD_FOLDER'] = os.path.abspath("data")
 def home():
     return render_template('input.html')
 
-
 @app.route("/graphs")
 def graphs():
     initialize()
     adata, meta = read_annotation_data()
+
+    if adata is None or meta is None:
+        abort(400)
+
     meta_filter_and_adata_append(adata, meta)
     cell_subtype = cell_filter(adata, cell_subtypes)
+
+    if cell_subtype is None:
+        abort(400)
+
     enhanced_cell_subtype = control_filter(cell_subtype, control_group, knockout_group)
+
+    if enhanced_cell_subtype is None:
+        abort(400)
+
     results = run_diffexp(enhanced_cell_subtype, control_group, knockout_group)
     results = process_diffexp(results)
+
+    if results is None:
+        abort(400)
+
     out = run_gseapy(results)
     ai_analysis(out, cell_subtypes)
 
@@ -66,11 +84,15 @@ def show_text():
 def submit():
     if request.method == "POST":
         meta, counts = request.files['metadata-file'], request.files['counts-file']
-        meta.save(os.path.join(app.config['UPLOAD_FOLDER'], meta.filename))
-        counts.save(os.path.join(app.config['UPLOAD_FOLDER'], counts.filename))
-        subtypes = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], meta.filename))[
-            'Cell_subtype'].unique().tolist()
-        groups = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], meta.filename))['group'].unique().tolist()
+
+        if meta is None or counts is None:
+            abort(400)
+        else:
+            meta.save(os.path.join(app.config['UPLOAD_FOLDER'], meta.filename))
+            counts.save(os.path.join(app.config['UPLOAD_FOLDER'], counts.filename))
+            subtypes = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], meta.filename))[
+                'Cell_subtype'].unique().tolist()
+            groups = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], meta.filename))['group'].unique().tolist()
 
     return render_template('secondinput.html', subtypes=subtypes, groups=groups)
 
@@ -82,3 +104,9 @@ def second_submit():
         control_group, knockout_group, cell_subtypes = request.form['control_group'], request.form['knockout_group'], request.form['cell-subtypes']
 
     return graphs()
+
+
+#Error handlers
+@app.errorhandler(400)
+def page_not_found(error):
+    return render_template('400.html'), 400

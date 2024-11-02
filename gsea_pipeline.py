@@ -116,9 +116,9 @@ def ai_analysis(data, cell_subtypes):
 
     # Convert DataFrame to string (if you want to display the entire CSV content as a string)
     csv_string = df.to_string(index=False)
-    llm = ChatOpenAI(temperature=0, model="gpt-4o", api_key=os.getenv("KEY"))
+    llm = ChatOpenAI(temperature=0, model="gpt-4o", api_key="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")
     response = llm.invoke(
-        f"Given the following CSV of gene groups, whether they are upregulated or downregulated, as well as corresponding genes: \n\n{csv_string}\n\n, as well as that the cell type in question is \n\n{cell_subtypes}\n\n, and that TIM3 is knocked out, explain why knockout causes certain genes to be downregulated, and how does that connect to the present expression profile in terms of relevant pathways? Avoid filler statements, mention specific genes and relevant literature, and produce a one page research paragraph with no title.")
+        f"Given the following CSV of gene groups, whether they are upregulated or downregulated, as well as corresponding genes: \n\n{csv_string}\n\n, as well as that the cell type in question is \n\n{cell_subtypes}\n\n, and that TIM3 is knocked out, propose new mechanisms for why knockout causes certain genes to be downregulated, using OTHER relevant pathways. Avoid filler statements, mention specific genes and relevant literature, and produce a one page research paragraph with no title.")
     print(response)
     response = str(response.content)
     output_file = os.path.abspath('outputs/llmoutput.txt')

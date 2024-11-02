@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GSEAsy</title>
+    <title>AI Results</title>
     <style>
         /* Root variables for color scheme */
         :root {
@@ -32,13 +32,13 @@
 
         /* Sidebar styling */
         .sidebar {
-            width: 280px;
+            width: 280px;  /* Fixed width */
             background-color: var(--bg-sidebar);
             padding: 20px;
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
-            pointer-events: none
+            height: 100vh; /* Set height to 100% of the viewport */
         }
 
         .sidebar h2 {
@@ -73,9 +73,8 @@
 
         /* Main content section */
         .content {
-            flex-grow: 1;
             padding: 30px;
-            overflow-y: auto;
+            width: 75%;
         }
 
         .content h1 {
@@ -122,39 +121,21 @@
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h2>GSEAsy</h2>
-            <nav>
-                <a href="{{url_for('home')}}" class="active">Input</a>
-                <a href="{{url_for('graphs')}}" disabled>Graphs</a>
-                <a href="{{url_for('show_text')}}" disabled>AI Results</a>
-            </nav>
-        </div>
-
-        <!-- Main Content Area -->
-        <div class="content">
-            <h1>Input Data Files</h1>
-            <form id="data-form" action="{{url_for('submit')}}" method="POST" enctype="multipart/form-data">
-                <!-- File upload for counts -->
-                <div class="input-group">
-                    <label for="counts-file">Upload Counts File:</label>
-                    <input type="file" id="counts-file" name="counts-file" accept=".csv, .txt, .tsv" required>
-                </div>
-
-                <!-- File upload for metadata -->
-                <div class="input-group">
-                    <label for="metadata-file">Upload Metadata File:</label>
-                    <input type="file" id="metadata-file" name="metadata-file" accept=".csv, .txt, .tsv" required>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="submit-btn">Submit</button>
-            </form>
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>GSEAsy</h2>
+        <nav>
+            <a href="{{url_for('home')}}">Input</a>
+            <a href="{{url_for('graphs')}}">Graphs</a>
+            <a href="{{url_for('show_text')}}">AI Results</a>
+        </nav>
+    </div>
+    <div class="content">
+        <div class="ai-results">
+            <h>An internal error has occurred due to misformatting of the counts or metadata.</h>
         </div>
     </div>
-
+</div>
 </body>
 </html>
