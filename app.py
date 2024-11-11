@@ -77,7 +77,7 @@ def graphs():
 def show_text():
     with open(os.path.abspath('outputs/llmoutput.txt'), 'r') as file:
         text_content = file.read()
-    return render_template('ai-results.html', text_content=text_content)
+    return render_template('ai-results.html', text_content=markdown.markdown(text_content))
 
 
 @app.route("/submit", methods=["POST", "GET"])

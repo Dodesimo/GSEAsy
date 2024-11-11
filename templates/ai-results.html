@@ -32,7 +32,7 @@
 
         /* Sidebar styling */
         .sidebar {
-            width: 280px;  /* Fixed width */
+            width: 280px; /* Fixed width */
             background-color: var(--bg-sidebar);
             padding: 20px;
             display: flex;
@@ -133,9 +133,10 @@
     </div>
     <div class="content">
         <div class="ai-results">
-            <markdown>{{ text_content }}</markdown>
+             {{ text_content|safe }}
         </div>
     </div>
 </div>
 </body>
 </html>
+

@@ -1,0 +1,6 @@
+Term,nes,lead_genes
+Pertussis toxin-insensitive CCR5 signaling in macrophage,downregulated,CALM2;CCR5;JUN;FOS;PRKCA;MAPK8;MAPK14;CXCR4;PRKCB;CCL2
+Oxidative stress-induced gene expression via Nrf2,downregulated,JUN;HMOX2;KEAP1;FOS;PRKCA;MAPK8;MAPK14;PRKCB;NFE2L2;MAFF;MAFK
+Regulation of NFAT transcription factors,downregulated,SLC3A2;EGR1;DGKA;IFNG;GBP3;CBLB;JUN;TBX21;NFATC2;CSF2;PTPN1;FOS
+Interleukin-9 regulation of target genes,downregulated,CCL3;SOCS3;PIM1;SELL;GZMA;CDKN2D
+Interleukin-12/STAT4 pathway,downregulated,IRF1;IFNG;STAT3;PRF1;CCR5;STAT4;JUN;TBX21;CREBBP;FOS;CXCR3;IL18RAP;IL12RB1;MAPK8;MAPK14

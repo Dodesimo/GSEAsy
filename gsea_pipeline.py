@@ -10,6 +10,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from langchain_openai import ChatOpenAI
 import glob
 from dotenv import load_dotenv
+import markdown
 
 load_dotenv()
 
@@ -25,7 +26,7 @@ def initialize():
 
 def read_annotation_data():
     adata = sc.read_csv(glob.glob(os.path.abspath('data/*counts.csv'))[0]).T
-    meta = pd.read_csv(glob.glob(os.path.abspath('data/*meta.csv'))[0])
+    meta = pd.read_csv(glob.glob(os.path.abspath('data/*metadata.csv'))[0])
     return adata, meta
 
 
@@ -115,7 +116,7 @@ def ai_analysis(data, cell_subtypes):
 
     # Convert DataFrame to string (if you want to display the entire CSV content as a string)
     csv_string = df.to_string(index=False)
-    llm = ChatOpenAI(temperature=0, model="gpt-4o", api_key='')
+    llm = ChatOpenAI(temperature=0, model="gpt-4o", api_key=os.environ.get("KEY"))
     response = llm.invoke(
         f"Given the following CSV of gene groups, whether they are upregulated or downregulated, as well as corresponding genes: \n\n{csv_string}\n\n, as well as that the cell type in question is \n\n{cell_subtypes}\n\n, propose new mechanisms for why just PD1 vs PD1 + IL21 causes certain genes to be downregulated, using OTHER relevant pathways. Avoid filler statements, mention specific genes and relevant literature, cite your sources in the format of in line citations and at the end of the paper, and give a 3 page paper in an IMRAD (introduction, methods, results, and discussion) format.")
     print(response)
