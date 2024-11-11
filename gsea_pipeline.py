@@ -115,7 +115,7 @@ def ai_analysis(data, cell_subtypes):
 
     # Convert DataFrame to string (if you want to display the entire CSV content as a string)
     csv_string = df.to_string(index=False)
-    llm = ChatOpenAI(temperature=0, model="gpt-4o", api_key='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')
+    llm = ChatOpenAI(temperature=0, model="gpt-4o", api_key='')
     response = llm.invoke(
         f"Given the following CSV of gene groups, whether they are upregulated or downregulated, as well as corresponding genes: \n\n{csv_string}\n\n, as well as that the cell type in question is \n\n{cell_subtypes}\n\n, propose new mechanisms for why just PD1 vs PD1 + IL21 causes certain genes to be downregulated, using OTHER relevant pathways. Avoid filler statements, mention specific genes and relevant literature, cite your sources in the format of in line citations and at the end of the paper, and give a 3 page paper in an IMRAD (introduction, methods, results, and discussion) format.")
     print(response)
