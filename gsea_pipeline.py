@@ -16,6 +16,7 @@ load_dotenv()
 
 global cell_subtypes
 global groups
+global experimental_design
 
 
 def initialize():
@@ -110,15 +111,14 @@ def run_gseapy(results):
     out_df_filtered.to_csv(os.path.abspath("outputs/output.txt"), sep=',', index=False)
     return out_df_filtered
 
-def ai_analysis(data, cell_subtypes):
+def ai_analysis(data, cell_subtypes, experimental_description):
     csv_file = os.path.abspath('outputs/output.csv')  # Replace with your actual CSV file path
     df = pd.read_csv(csv_file)
-
     # Convert DataFrame to string (if you want to display the entire CSV content as a string)
     csv_string = df.to_string(index=False)
     llm = ChatOpenAI(temperature=0, model="gpt-4o", api_key=os.environ.get("KEY"))
     response = llm.invoke(
-        f"Given the following CSV of gene groups, whether they are upregulated or downregulated, as well as corresponding genes: \n\n{csv_string}\n\n, as well as that the cell type in question is \n\n{cell_subtypes}\n\n, propose new mechanisms for why just PD1 vs PD1 + IL21 causes certain genes to be downregulated, using OTHER relevant pathways. Avoid filler statements, mention specific genes and relevant literature, cite your sources in the format of in line citations and at the end of the paper, and give a 3 page paper in an IMRAD (introduction, methods, results, and discussion) format.")
+        f"Given the following CSV of gene groups, whether they are upregulated or downregulated, as well as corresponding genes: \n\n{csv_string}\n\n, as well as that the cell type in question is \n\n{cell_subtypes}\n\n, given that {experimental_description}, propose new mechanisms for why this causes genes to be upregulated and down regulated using other relevant pathways found from the data provided. Avoid filler statements, mention specific genes and relevant literature, cite your sources in the format of in line citations and at the end of the paper, and give a 3 page paper in an IMRAD (introduction, methods, results, and discussion) format.")
     print(response)
     response = str(response.content)
     output_file = os.path.abspath('outputs/llmoutput.txt')

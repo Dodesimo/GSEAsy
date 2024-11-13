@@ -18,6 +18,7 @@ load_dotenv()
 cell_subtypes = ""
 control_group = ""
 knockout_group = ""
+experimental_description = ""
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.abspath("data")
@@ -53,7 +54,7 @@ def graphs():
         abort(400)
 
     out = run_gseapy(results)
-    ai_analysis(out, cell_subtypes)
+    ai_analysis(out, cell_subtypes, experimental_description)
 
     # Render heat map and save it to disk
     gene_expression_data = adata.to_df()  # Assuming adata is an AnnData object
@@ -100,8 +101,8 @@ def submit():
 @app.route("/second_submit", methods=["POST", "GET"])
 def second_submit():
     if request.method == "POST":
-        global control_group, knockout_group, cell_subtypes
-        control_group, knockout_group, cell_subtypes = request.form['control_group'], request.form['knockout_group'], request.form['cell-subtypes']
+        global experimental_description, control_group, knockout_group, cell_subtypes
+        experimental_description, control_group, knockout_group, cell_subtypes = request.form.get("ed"), request.form['control_group'], request.form['knockout_group'], request.form['cell-subtypes']
 
     return graphs()
 
