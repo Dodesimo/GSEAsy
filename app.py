@@ -1,3 +1,5 @@
+import glob
+
 import matplotlib
 from flask import Flask, render_template, url_for, request, send_file
 import os
@@ -30,7 +32,6 @@ def home():
 
 @app.route("/graphs")
 def graphs():
-
     if os.path.exists("static/heatmap.png"):
         return render_template('graphs.html')
     else:
@@ -88,6 +89,11 @@ def show_text():
 @app.route("/submit", methods=["POST", "GET"])
 def submit():
     if request.method == "POST":
+        files = glob.glob('static/*')
+        if len(files) != 0:
+            for f in files:
+                os.remove(f)
+
         meta, counts = request.files['metadata-file'], request.files['counts-file']
 
         if meta is None or counts is None:
