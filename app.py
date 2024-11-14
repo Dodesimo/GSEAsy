@@ -30,48 +30,52 @@ def home():
 
 @app.route("/graphs")
 def graphs():
-    initialize()
-    adata, meta = read_annotation_data()
 
-    if adata is None or meta is None:
-        abort(400)
+    if os.path.exists("static/heatmap.png"):
+        return render_template('graphs.html')
+    else:
+        initialize()
+        adata, meta = read_annotation_data()
 
-    meta_filter_and_adata_append(adata, meta)
-    cell_subtype = cell_filter(adata, cell_subtypes)
+        if adata is None or meta is None:
+            abort(400)
 
-    if cell_subtype is None:
-        abort(400)
+        meta_filter_and_adata_append(adata, meta)
+        cell_subtype = cell_filter(adata, cell_subtypes)
 
-    enhanced_cell_subtype = control_filter(cell_subtype, control_group, knockout_group)
+        if cell_subtype is None:
+            abort(400)
 
-    if enhanced_cell_subtype is None:
-        abort(400)
+        enhanced_cell_subtype = control_filter(cell_subtype, control_group, knockout_group)
 
-    results = run_diffexp(enhanced_cell_subtype, control_group, knockout_group)
-    results = process_diffexp(results)
+        if enhanced_cell_subtype is None:
+            abort(400)
 
-    if results is None:
-        abort(400)
+        results = run_diffexp(enhanced_cell_subtype, control_group, knockout_group)
+        results = process_diffexp(results)
 
-    out = run_gseapy(results)
-    ai_analysis(out, cell_subtypes, experimental_description)
+        if results is None:
+            abort(400)
 
-    # Render heat map and save it to disk
-    gene_expression_data = adata.to_df()  # Assuming adata is an AnnData object
-    experimental_or_control = adata.obs['group']  # Experimental/control group info
-    gene_condition_data = gene_expression_data.groupby(experimental_or_control).mean()
+        out = run_gseapy(results)
+        ai_analysis(out, cell_subtypes, experimental_description)
 
-    # Plot heat map
-    fig, ax = plt.subplots(figsize=(10, 8))
-    sns.heatmap(gene_condition_data.T[:10], cmap='viridis', vmin=0, vmax=1)
-    plt.title('Heat Map of Gene Expression Across Experimental and Control Groups')
+        # Render heat map and save it to disk
+        gene_expression_data = adata.to_df()  # Assuming adata is an AnnData object
+        experimental_or_control = adata.obs['group']  # Experimental/control group info
+        gene_condition_data = gene_expression_data.groupby(experimental_or_control).mean()
 
-    # Save the heat map to disk
-    heatmap_path = os.path.join("outputs", 'heatmap.png')
-    plt.savefig(heatmap_path)
-    plt.close(fig)
+        # Plot heat map
+        fig, ax = plt.subplots(figsize=(10, 8))
+        sns.heatmap(gene_condition_data.T[:10], cmap='viridis', vmin=0, vmax=1)
+        plt.title('Heat Map of Gene Expression Across Experimental and Control Groups')
 
-    return render_template('graphs.html')
+        # Save the heat map to disk
+        heatmap_path = os.path.join("static", 'heatmap.png')
+        plt.savefig(heatmap_path)
+        plt.close(fig)
+
+        return render_template('graphs.html')
 
 
 @app.route('/show-text')
