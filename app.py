@@ -65,7 +65,6 @@ def graphs(deg):
             plt.close(fig)
 
             table = deg_csv.to_html(classes='table table-bordered table-striped', index=False)
-            filtered = None
 
         else:
             initialize()
@@ -112,6 +111,7 @@ def graphs(deg):
             # Filter, generate table for log fold.
             filtered = filter_control(control_genes)
 
+        filtered = filter_control(control_genes)
         return render_template('graphs.html', table=table, filter_table=filtered)
 
 
@@ -187,6 +187,9 @@ def deg_submit():
 
             global experimental_description
             experimental_description = request.form['ed']
+
+            global control_genes
+            control_genes = request.form['cg']
 
             ai_analysis(pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], deg_table.filename)), cell_subtypes,
                         experimental_description)
