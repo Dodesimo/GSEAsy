@@ -22,6 +22,7 @@ control_group = ""
 knockout_group = ""
 experimental_description = ""
 control_genes = ""
+deg_name = ""
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.abspath("data")
@@ -33,53 +34,83 @@ def home():
 
 
 @app.route("/graphs")
-def graphs():
+def graphs(deg):
     if os.path.exists("static/heatmap.png"):
+
         return render_template('graphs.html')
+
     else:
-        initialize()
-        adata, meta = read_annotation_data()
+        if deg:
 
-        if adata is None or meta is None:
-            abort(400)
+            deg_csv = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], deg_name))
+            deg_csv = deg_csv.drop(deg_csv.columns[0], axis=1)
+            top_deg_csv = deg_csv.sort_values(by='Rank', ascending=False)[:15]
 
-        meta_filter_and_adata_append(adata, meta)
-        cell_subtype = cell_filter(adata, cell_subtypes)
+            # Assuming `top_deg_csv` contains the top 15 genes
+            fig = plt.figure(figsize=(10, 6))
 
-        if cell_subtype is None:
-            abort(400)
+            # Create the scatterplot
+            sns.scatterplot(data=top_deg_csv, x='Gene', y='log2FoldChange', palette='viridis', s=100)
 
-        enhanced_cell_subtype = control_filter(cell_subtype, control_group, knockout_group)
+            # Customizing the plot
+            plt.title('log2FoldChange for Top 15 Genes', fontsize=14)
+            plt.xlabel('Gene', fontsize=12)
+            plt.ylabel('log2FoldChange', fontsize=12)
+            plt.xticks(rotation=45, ha='right')  # Rotate gene names for better visibility
 
-        if enhanced_cell_subtype is None:
-            abort(400)
+            plt.tight_layout()
 
-        results = run_diffexp(enhanced_cell_subtype, control_group, knockout_group)
-        results = process_diffexp(results)
+            heatmap_path = os.path.join("static", 'heatmap.png')
+            plt.savefig(heatmap_path)
+            plt.close(fig)
 
-        if results is None:
-            abort(400)
+            table = deg_csv.to_html(classes='table table-bordered table-striped', index=False)
+            filtered = None
 
-        out, table = run_gseapy(results)
-        ai_analysis(out, cell_subtypes, experimental_description)
+        else:
+            initialize()
+            adata, meta = read_annotation_data()
 
-        # Render heat map and save it to disk
-        gene_expression_data = adata.to_df()  # Assuming adata is an AnnData object
-        experimental_or_control = adata.obs['group']  # Experimental/control group info
-        gene_condition_data = gene_expression_data.groupby(experimental_or_control).mean()
+            if adata is None or meta is None:
+                abort(400)
 
-        # Plot heat map
-        fig, ax = plt.subplots(figsize=(10, 8))
-        sns.heatmap(gene_condition_data.T[:10], cmap='viridis', vmin=0, vmax=1)
-        plt.title('Heat Map of Gene Expression Across Experimental and Control Groups')
+            meta_filter_and_adata_append(adata, meta)
+            cell_subtype = cell_filter(adata, cell_subtypes)
 
-        # Save the heat map to disk
-        heatmap_path = os.path.join("static", 'heatmap.png')
-        plt.savefig(heatmap_path)
-        plt.close(fig)
+            if cell_subtype is None:
+                abort(400)
 
-        # Filter, generate table for log fold.
-        filtered = filter_control(control_genes)
+            enhanced_cell_subtype = control_filter(cell_subtype, control_group, knockout_group)
+
+            if enhanced_cell_subtype is None:
+                abort(400)
+
+            results = run_diffexp(enhanced_cell_subtype, control_group, knockout_group)
+            results = process_diffexp(results)
+
+            if results is None:
+                abort(400)
+
+            out, table = run_gseapy(results)
+            ai_analysis(out, cell_subtypes, experimental_description)
+
+            # Render heat map and save it to disk
+            gene_expression_data = adata.to_df()  # Assuming adata is an AnnData object
+            experimental_or_control = adata.obs['group']  # Experimental/control group info
+            gene_condition_data = gene_expression_data.groupby(experimental_or_control).mean()
+
+            # Plot heat map
+            fig, ax = plt.subplots(figsize=(10, 8))
+            sns.heatmap(gene_condition_data.T[:10], cmap='viridis', vmin=0, vmax=1)
+            plt.title('Heat Map of Gene Expression Across Experimental and Control Groups')
+
+            # Save the heat map to disk
+            heatmap_path = os.path.join("static", 'heatmap.png')
+            plt.savefig(heatmap_path)
+            plt.close(fig)
+
+            # Filter, generate table for log fold.
+            filtered = filter_control(control_genes)
 
         return render_template('graphs.html', table=table, filter_table=filtered)
 
@@ -97,6 +128,7 @@ def submit():
         return render_template('input.html')
 
     if request.method == "POST":
+
         files = glob.glob('static/*')
         data = glob.glob('data/*')
         if len(files) != 0:
@@ -127,12 +159,27 @@ def deg_submit():
         return render_template("deg_input.html")
 
     if request.method == "POST":
+
+        files = glob.glob('static/*')
+        data = glob.glob('data/*')
+        if len(files) != 0:
+            for f in files:
+                os.remove(f)
+
+        if len(data) != 0:
+            for d in data:
+                os.remove(d)
+
         deg_table = request.files['deg_table']
 
         if deg_table is None:
             return render_template("deg_input.html")
 
         else:
+
+            global deg_name
+            deg_name = deg_table.filename
+
             deg_table.save(os.path.join(app.config['UPLOAD_FOLDER'], deg_table.filename))
 
             global cell_subtypes
@@ -145,7 +192,8 @@ def deg_submit():
                         experimental_description)
             with open(os.path.abspath('outputs/llmoutput.txt'), 'r') as file:
                 text_content = file.read()
-            return render_template('ai-results.html', text_content=markdown.markdown(text_content))
+
+            return graphs(deg=True)
 
 
 @app.route("/second_submit", methods=["POST", "GET"])
@@ -156,7 +204,7 @@ def second_submit():
             "cg"), request.form.get("ed"), request.form['control_group'], request.form['knockout_group'], request.form[
             'cell-subtypes']
 
-    return graphs()
+    return graphs(deg=False)
 
 
 # Error handlers
