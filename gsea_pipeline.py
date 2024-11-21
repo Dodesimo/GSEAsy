@@ -17,6 +17,7 @@ load_dotenv()
 global cell_subtypes
 global groups
 global experimental_design
+global annotation_data
 
 
 def initialize():
@@ -28,6 +29,36 @@ def initialize():
 def read_annotation_data():
     adata = sc.read_csv(glob.glob(os.path.abspath('data/*counts.csv'))[0]).T
     meta = pd.read_csv(glob.glob(os.path.abspath('data/*metadata.csv'))[0])
+
+    if any(adata.var_names.duplicated()):
+        print("Warning: Duplicate gene names found. These will be summed together.")
+
+    # Create binary matrix
+    binary_matrix = (adata.X > 0).astype(int)
+
+    # Calculate percentage for each unique gene
+    unique_genes = pd.Index(adata.var_names).unique()
+    percentages = []
+
+    for gene in unique_genes:
+        # Get all columns corresponding to this gene
+        gene_indices = [i for i, name in enumerate(adata.var_names) if name == gene]
+        gene_binary = binary_matrix[:, gene_indices]
+
+        # A cell expresses the gene if any copy is expressed
+        gene_expression = (gene_binary.sum(axis=1) > 0).astype(int)
+
+        # Calculate percentage
+        percent = (gene_expression.mean() * 100)
+        percentages.append(percent)
+
+    binary_matrix = (adata.X > 0).astype(int)
+    percent_expression_per_gene = np.array(binary_matrix.mean(axis=0)).flatten() * 100
+    adata.var['percent_expressed'] = percentages
+
+    global annotation_data
+    annotation_data = adata
+
     return adata, meta
 
 
@@ -86,6 +117,7 @@ def process_diffexp(results):
 def run_gseapy(results):
     results['Rank'] = -np.log10(results.padj) * results.log2FoldChange
     results = results.sort_values('Rank', ascending=False)
+    results['percent of cells expressed'] = annotation_data.var['percent_expressed']
 
     results_html = results.to_html(classes='table table-bordered table-striped', index=False)
 
