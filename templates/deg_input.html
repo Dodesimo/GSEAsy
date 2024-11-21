@@ -38,7 +38,7 @@
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
-            pointer-events: none;
+            pointer-events: none
         }
 
         .sidebar h2 {
@@ -76,76 +76,89 @@
             flex-grow: 1;
             padding: 30px;
             overflow-y: auto;
-            text-align: center;
         }
 
         .content h1 {
             font-size: 2rem;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             color: var(--text-color);
         }
 
-        .button-group {
+        .input-group {
             display: flex;
-            justify-content: center;
-            gap: 30px;
+            flex-direction: column;
+            margin-bottom: 20px;
         }
 
-        .button-group .submit-btn {
-            padding: 20px 40px;
-            font-size: 1.2rem;
+        .input-group label {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--accent-color);
+        }
+
+        .input-group input {
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+        }
+
+        .submit-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
             background-color: var(--primary-color);
             border: none;
             border-radius: 5px;
             color: var(--text-color);
             cursor: pointer;
             transition: background-color 0.3s;
-            width: 200px;
-            height: 60px;
         }
 
-        .button-group .submit-btn:hover {
+        .submit-btn:hover {
             background-color: var(--hover-color);
-        }
-
-        .button-group .submit-btn:disabled {
-            background-color: var(--accent-color);
-            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h2>GSEAsy</h2>
-            <nav>
-                <a href="{{url_for('home')}}" class="active">Input</a>
-                <a href="{{url_for('graphs')}}" disabled>Graphs</a>
-                <a href="{{url_for('show_text')}}" disabled>AI Results</a>
-            </nav>
-        </div>
-
-        <!-- Main Content Area -->
-        <div class="content">
-            <h1>Welcome to GSEAsy</h1>
-            <p>Please choose the type of data you would like to input:</p>
-
-            <!-- Button Group for Raw Counts and Deg Table -->
-            <div class="button-group">
-                <!-- Button for Raw Counts -->
-                <form action="{{url_for('submit')}}" method="GET">
-                    <button type="submit" class="submit-btn">Raw Counts</button>
-                </form>
-
-                <!-- Button for Deg Table -->
-                <form action="{{url_for('deg_submit')}}" method="GET">
-                    <button type="submit" class="submit-btn">DEG Table</button>
-                </form>
-            </div>
-        </div>
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>GSEAsy</h2>
+        <nav>
+            <a href="{{url_for('home')}}" class="active">Input</a>
+            <a href="{{url_for('graphs')}}" disabled>Graphs</a>
+            <a href="{{url_for('show_text')}}" disabled>AI Results</a>
+        </nav>
     </div>
+
+    <!-- Main Content Area -->
+    <div class="content">
+        <h1>Input Data Files</h1>
+        <form id="data-form" action="{{url_for('deg_submit')}}" method="POST" enctype="multipart/form-data">
+            <!-- File upload for counts -->
+            <div class="input-group">
+                <label for="deg_table">Upload DEG Table:</label>
+                <input type="file" id="deg_table" name="deg_table" accept=".csv, .txt, .tsv" required>
+            </div>
+
+            <div class="input-group">
+                <label for="csub">Provide the cell subtype involved.</label>
+                <textarea id='csub' name="csub"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="ed">Provide a description of the experiment.</label>
+                <textarea id='ed' name="ed"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

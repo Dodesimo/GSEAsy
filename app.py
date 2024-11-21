@@ -31,6 +31,7 @@ app.config['UPLOAD_FOLDER'] = os.path.abspath("data")
 def home():
     return render_template('landing.html')
 
+
 @app.route("/graphs")
 def graphs():
     if os.path.exists("static/heatmap.png"):
@@ -77,11 +78,10 @@ def graphs():
         plt.savefig(heatmap_path)
         plt.close(fig)
 
-        #Filter, generate table for log fold.
+        # Filter, generate table for log fold.
         filtered = filter_control(control_genes)
 
-
-        return render_template('graphs.html', table = table, filter_table = filtered)
+        return render_template('graphs.html', table=table, filter_table=filtered)
 
 
 @app.route('/show-text')
@@ -93,15 +93,19 @@ def show_text():
 
 @app.route("/submit", methods=["POST", "GET"])
 def submit():
-
     if request.method == "GET":
         return render_template('input.html')
 
     if request.method == "POST":
         files = glob.glob('static/*')
+        data = glob.glob('data/*')
         if len(files) != 0:
             for f in files:
                 os.remove(f)
+
+        if len(data) != 0:
+            for d in data:
+                os.remove(d)
 
         meta, counts = request.files['metadata-file'], request.files['counts-file']
 
@@ -117,24 +121,45 @@ def submit():
     return render_template('secondinput.html', subtypes=subtypes, groups=groups)
 
 
+@app.route("/deg_submit", methods=["POST", "GET"])
 def deg_submit():
+    if request.method == "GET":
+        return render_template("deg_input.html")
 
+    if request.method == "POST":
+        deg_table = request.files['deg_table']
 
+        if deg_table is None:
+            return render_template("deg_input.html")
 
+        else:
+            deg_table.save(os.path.join(app.config['UPLOAD_FOLDER'], deg_table.filename))
 
+            global cell_subtypes
+            cell_subtypes = request.form['csub']
+
+            global experimental_description
+            experimental_description = request.form['ed']
+
+            ai_analysis(pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], deg_table.filename)), cell_subtypes,
+                        experimental_description)
+            with open(os.path.abspath('outputs/llmoutput.txt'), 'r') as file:
+                text_content = file.read()
+            return render_template('ai-results.html', text_content=markdown.markdown(text_content))
 
 
 @app.route("/second_submit", methods=["POST", "GET"])
 def second_submit():
     if request.method == "POST":
         global experimental_description, control_group, knockout_group, cell_subtypes, control_genes
-        control_genes, experimental_description, control_group, knockout_group, cell_subtypes = request.form.get("cg"), request.form.get("ed"), request.form['control_group'], request.form['knockout_group'], request.form['cell-subtypes']
+        control_genes, experimental_description, control_group, knockout_group, cell_subtypes = request.form.get(
+            "cg"), request.form.get("ed"), request.form['control_group'], request.form['knockout_group'], request.form[
+            'cell-subtypes']
 
     return graphs()
 
 
-
-#Error handlers
+# Error handlers
 @app.errorhandler(400)
 def page_not_found(error):
     return render_template('400.html'), 400
