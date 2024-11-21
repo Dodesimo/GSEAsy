@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Results</title>
     <style>
-        /* Root variables for color scheme */
         :root {
             --bg-color: #1c1c1e;
             --bg-sidebar: #2c2c2e;
@@ -24,21 +23,19 @@
             color: var(--text-color);
         }
 
-        /* Flex container for layout */
         .container {
             display: flex;
-            height: 100vh;
+            min-height: 100vh; /* Ensures container grows with content */
+            align-items: stretch; /* Stretches sidebar and content to equal height */
         }
 
-        /* Sidebar styling */
         .sidebar {
-            width: 280px; /* Fixed width */
+            width: 280px;
             background-color: var(--bg-sidebar);
             padding: 20px;
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
-            height: auto; /* Set height to 100% of the viewport */
         }
 
         .sidebar h2 {
@@ -71,10 +68,9 @@
             background-color: var(--primary-color);
         }
 
-        /* Main content section */
         .content {
             padding: 30px;
-            width: 75%;
+            flex: 1; /* Allows the content section to take up remaining space */
         }
 
         .content h1 {
@@ -83,46 +79,14 @@
             color: var(--text-color);
         }
 
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
+        .ai-results {
             font-size: 1rem;
-            margin-bottom: 5px;
-            color: var(--accent-color);
-        }
-
-        .input-group input {
-            padding: 10px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--input-bg);
-            color: var(--text-color);
-        }
-
-        .submit-btn {
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: var(--primary-color);
-            border: none;
-            border-radius: 5px;
-            color: var(--text-color);
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .submit-btn:hover {
-            background-color: var(--hover-color);
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- Sidebar -->
     <div class="sidebar">
         <h2>GSEAsy</h2>
         <nav>
@@ -133,10 +97,9 @@
     </div>
     <div class="content">
         <div class="ai-results">
-             {{ text_content|safe }}
+            {{ text_content|safe }}
         </div>
     </div>
 </div>
 </body>
 </html>
-
