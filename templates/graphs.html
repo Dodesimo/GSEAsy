@@ -122,8 +122,45 @@
         .submit-btn:hover {
             background-color: var(--hover-color);
         }
+
+        /* Styling the table with DataTables */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        table th {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #2c2c2e;
+        }
+
+        table tr:hover {
+            background-color: var(--hover-color);
+        }
+
+        table td {
+            color: var(--text-color);
+        }
+
     </style>
 
+    <!-- Add jQuery (required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Add DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 </head>
 <body>
@@ -133,7 +170,7 @@
         <h2>GSEAsy</h2>
         <nav>
             <a href="{{url_for('home')}}">Input</a>
-             <a href="{{url_for('graphs')}}" class="active">Graphs</a>
+            <a href="{{url_for('graphs')}}" class="active">Graphs</a>
             <a href="{{url_for('show_text')}}">AI Results</a>
         </nav>
     </div>
@@ -141,7 +178,28 @@
         <div>
             <img src="{{url_for('static', filename='heatmap.png')}}" alt="Heat Map" style="width: 650px;">
         </div>
+
+
+        <h1>DEG Table</h1>
+
+        <div>
+            {{ table|safe }}
+        </div>
+
+        <h1>Control Batch Effects</h1>
+
+         <div>
+            {{ filter_table|safe }}
+        </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize DataTables on the table
+            $('table').DataTable();  // This will make all tables interactive
+        });
+    </script>
+
 </div>
 </body>
 </html>

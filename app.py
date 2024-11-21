@@ -4,7 +4,7 @@ import matplotlib
 from flask import Flask, render_template, url_for, request, send_file
 import os
 from gsea_pipeline import initialize, read_annotation_data, meta_filter_and_adata_append, cell_filter, control_filter, \
-    run_diffexp, process_diffexp, run_gseapy, ai_analysis
+    run_diffexp, process_diffexp, run_gseapy, ai_analysis, filter_control
 from dotenv import load_dotenv
 import markdown
 import pandas as pd
@@ -21,6 +21,7 @@ cell_subtypes = ""
 control_group = ""
 knockout_group = ""
 experimental_description = ""
+control_genes = ""
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.abspath("data")
@@ -58,7 +59,7 @@ def graphs():
         if results is None:
             abort(400)
 
-        out = run_gseapy(results)
+        out, table = run_gseapy(results)
         ai_analysis(out, cell_subtypes, experimental_description)
 
         # Render heat map and save it to disk
@@ -76,7 +77,11 @@ def graphs():
         plt.savefig(heatmap_path)
         plt.close(fig)
 
-        return render_template('graphs.html')
+        #Filter, generate table for log fold.
+        filtered = filter_control(control_genes)
+
+
+        return render_template('graphs.html', table = table, filter_table = filtered)
 
 
 @app.route('/show-text')
@@ -111,10 +116,11 @@ def submit():
 @app.route("/second_submit", methods=["POST", "GET"])
 def second_submit():
     if request.method == "POST":
-        global experimental_description, control_group, knockout_group, cell_subtypes
-        experimental_description, control_group, knockout_group, cell_subtypes = request.form.get("ed"), request.form['control_group'], request.form['knockout_group'], request.form['cell-subtypes']
+        global experimental_description, control_group, knockout_group, cell_subtypes, control_genes
+        control_genes, experimental_description, control_group, knockout_group, cell_subtypes = request.form.get("cg"), request.form.get("ed"), request.form['control_group'], request.form['knockout_group'], request.form['cell-subtypes']
 
     return graphs()
+
 
 
 #Error handlers
