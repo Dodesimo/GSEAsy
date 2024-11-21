@@ -44,7 +44,6 @@ def cell_filter(adata, subtype):
 
 
 def control_filter(cell_subtype, control_group, knockout_group):
-
     Ko = knockout_group
     control = control_group
 
@@ -54,10 +53,10 @@ def control_filter(cell_subtype, control_group, knockout_group):
 
 
 def run_diffexp(enhanced_cell_subtype, control_group, knockout_group):
-    #print("Enhanced cell subtype", enhanced_cell_subtype)
+    # print("Enhanced cell subtype", enhanced_cell_subtype)
     counts = pd.DataFrame(enhanced_cell_subtype.X, columns=enhanced_cell_subtype.var_names)
-    #print(counts)
-    #print(enhanced_cell_subtype.obs)
+    # print(counts)
+    # print(enhanced_cell_subtype.obs)
 
     dds = DeseqDataSet(
         counts=counts,
@@ -103,7 +102,8 @@ def run_gseapy(results):
                     pre_res.results[term]['nes'],
                     pre_res.results[term]['lead_genes']]),
 
-    out_df = pd.DataFrame(out, columns=['Term', 'fdr', 'es', 'nes', 'lead_genes']).sort_values('nes').reset_index(drop=True)
+    out_df = pd.DataFrame(out, columns=['Term', 'fdr', 'es', 'nes', 'lead_genes']).sort_values('nes').reset_index(
+        drop=True)
     out_df = out_df[out_df['fdr'] < 0.1]
     out_df = out_df.sort_values('nes', ascending=False)
     out_df['nes'] = out_df['nes'].apply(
@@ -119,6 +119,7 @@ def run_gseapy(results):
     out_df_filtered.to_csv(os.path.abspath("outputs/output.txt"), sep=',', index=False)
     return out_df_filtered, results_html
 
+
 def ai_analysis(data, cell_subtypes, experimental_description):
     csv_file = os.path.abspath('outputs/output.csv')  # Replace with your actual CSV file path
     df = pd.read_csv(csv_file)
@@ -133,3 +134,26 @@ def ai_analysis(data, cell_subtypes, experimental_description):
     output_file = os.path.abspath('outputs/llmoutput.txt')
     with open(output_file, 'w') as file:
         file.write(response)
+
+
+def filter_control(query):
+    # Split the genes string into a list
+    genes = query.split(",")
+
+    # Initialize an empty list to store filtered DataFrames
+    filtered = []
+
+    # Read the DEGs CSV into a DataFrame
+    degs = pd.read_csv("outputs/degs.csv")
+
+    # Iterate through the list of genes
+    for gene in genes:
+        # Filter the DEGs DataFrame for each gene and append to the list
+        gene_filtered = degs.loc[degs['Gene'] == gene]
+        filtered.append(gene_filtered)
+
+    # Concatenate all filtered DataFrames into one DataFrame
+    result_df = pd.concat(filtered, ignore_index=True)
+    filtered_df_html = result_df.to_html(classes='table table-bordered table-striped', index=False)
+
+    return filtered_df_html

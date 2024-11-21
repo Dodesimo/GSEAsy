@@ -179,8 +179,17 @@
             <img src="{{url_for('static', filename='heatmap.png')}}" alt="Heat Map" style="width: 650px;">
         </div>
 
+
+        <h1>DEG Table</h1>
+
         <div>
             {{ table|safe }}
+        </div>
+
+        <h1>Control Batch Effects</h1>
+
+         <div>
+            {{ filter_table|safe }}
         </div>
     </div>
 
