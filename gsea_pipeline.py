@@ -87,6 +87,9 @@ def process_diffexp(results):
 def run_gseapy(results):
     results['Rank'] = -np.log10(results.padj) * results.log2FoldChange
     results = results.sort_values('Rank', ascending=False)
+
+    results_html = results.to_html(classes='table table-bordered table-striped', index=False)
+
     ranking = results[['Gene', 'Rank']]
     ranking = ranking.reset_index(drop=True)
     ranking['Gene'] = ranking['Gene'].str.upper()
@@ -107,9 +110,14 @@ def run_gseapy(results):
         lambda x: 'upregulated' if x > 1 else ('downregulated' if x < -1 else 'neutral'))
     out_df_filtered = out_df.loc[out_df['nes'] != 'neutral']
     out_df_filtered = out_df_filtered[['Term', 'nes', 'lead_genes']]
+
+    first_15 = out_df_filtered.head(15)
+    last_15 = out_df_filtered.tail(15)
+    out_df_filtered = pd.concat([first_15, last_15])
+
     out_df_filtered.to_csv(os.path.abspath("outputs/output.csv"), index=False)
     out_df_filtered.to_csv(os.path.abspath("outputs/output.txt"), sep=',', index=False)
-    return out_df_filtered
+    return out_df_filtered, results_html
 
 def ai_analysis(data, cell_subtypes, experimental_description):
     csv_file = os.path.abspath('outputs/output.csv')  # Replace with your actual CSV file path

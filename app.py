@@ -58,7 +58,7 @@ def graphs():
         if results is None:
             abort(400)
 
-        out = run_gseapy(results)
+        out, table = run_gseapy(results)
         ai_analysis(out, cell_subtypes, experimental_description)
 
         # Render heat map and save it to disk
@@ -76,7 +76,7 @@ def graphs():
         plt.savefig(heatmap_path)
         plt.close(fig)
 
-        return render_template('graphs.html')
+        return render_template('graphs.html', table = table)
 
 
 @app.route('/show-text')
@@ -113,8 +113,10 @@ def second_submit():
     if request.method == "POST":
         global experimental_description, control_group, knockout_group, cell_subtypes
         experimental_description, control_group, knockout_group, cell_subtypes = request.form.get("ed"), request.form['control_group'], request.form['knockout_group'], request.form['cell-subtypes']
+        send_file('outputs/degs.csv', as_attachment=True, download_name="degs.csv", mimetype='text/csv')
 
     return graphs()
+
 
 
 #Error handlers
