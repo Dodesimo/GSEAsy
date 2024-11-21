@@ -29,7 +29,7 @@ app.config['UPLOAD_FOLDER'] = os.path.abspath("data")
 
 @app.route("/")
 def home():
-    return render_template('input.html')
+    return render_template('landing.html')
 
 @app.route("/graphs")
 def graphs():
@@ -93,6 +93,10 @@ def show_text():
 
 @app.route("/submit", methods=["POST", "GET"])
 def submit():
+
+    if request.method == "GET":
+        return render_template('input.html')
+
     if request.method == "POST":
         files = glob.glob('static/*')
         if len(files) != 0:
@@ -111,6 +115,13 @@ def submit():
             groups = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], meta.filename))['group'].unique().tolist()
 
     return render_template('secondinput.html', subtypes=subtypes, groups=groups)
+
+
+def deg_submit():
+
+
+
+
 
 
 @app.route("/second_submit", methods=["POST", "GET"])
