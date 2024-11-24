@@ -90,7 +90,7 @@ def graphs(deg):
             if results is None:
                 abort(400)
 
-            out, table = run_gseapy(results)
+            out, table, expression_table = run_gseapy(results)
             ai_analysis(out, cell_subtypes, experimental_description)
 
             # Render heat map and save it to disk
@@ -112,7 +112,7 @@ def graphs(deg):
             filtered = filter_control(control_genes)
 
         filtered = filter_control(control_genes)
-        return render_template('graphs.html', table=table, filter_table=filtered)
+        return render_template('graphs.html', table=table, filter_table=filtered, expression_table = expression_table)
 
 
 @app.route('/show-text')
