@@ -18,15 +18,15 @@ def create_document_loader(cell_subtypes, experimental_description):
     return docs
 
 
-def initialize_vector_store(docs):
-    vector_store = InMemoryVectorStore(embedding=OpenAIEmbeddings(
-        embeddings=OpenAIEmbeddings(model="text-embedding-3-large", api_key=os.environ.get("KEY"))))
+def initialize_vector_store():
+    vector_store = InMemoryVectorStore(
+        embedding=OpenAIEmbeddings(model="text-embedding-3-large", api_key=os.environ.get("KEY")))
     return vector_store
 
 
 def create_template():
     template = '''
-    f"Avoid filler statements, mention specific genes and relevant literature, cite your sources in the format of in line citations and at the end of the paper, focus only on immunology pathways, and give a 3  page, dense-paragraph paper in an IMRAD (introduction, methods, results, and discussion) format.
+    f"Avoid filler statements, mention specific genes and relevant literature, cite at least 7 sources used during RAG retrievals in the format of in-line citations (Author, Year) and at the end of the paper (with proper formatting), making sure that ALL TITLES, AUTHORS, AND DATES ARE FULLY ACCURATE, focus only on immunology pathways, and give a 3  page, dense-paragraph paper in an IMRAD (introduction, methods, results, and discussion) format.
     {context}
 
     Question: {question}
