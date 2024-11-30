@@ -129,15 +129,15 @@ def run_gseapy(results):
     results['Rank'] = -np.log10(results.padj) * results.log2FoldChange
     results = results.sort_values('Rank', ascending=False)
 
-    top_10 = results.head(20)
+    top_20 = results.head(20)
 
     # Take the bottom 10 rows
-    bottom_10 = results.tail(20)
+    bottom_20 = results.tail(20)
 
     # Combine the two subsets into one DataFrame
-    selected_results = pd.concat([top_10, bottom_10])
+    selected_results = pd.concat([top_20, bottom_20])
 
-    selected_results.to_csv(os.path.abspath('outputs/degs.csv'))
+    selected_results.to_csv(os.path.abspath('../outputs/degs.csv'))
     results_html = results.to_html(classes='table table-bordered table-striped', index=False)
 
     ranking = results[['Gene', 'Rank']]
@@ -166,8 +166,8 @@ def run_gseapy(results):
     last_15 = out_df_filtered.tail(15)
     out_df_filtered = pd.concat([first_15, last_15])
 
-    out_df_filtered.to_csv(os.path.abspath("outputs/output.csv"), index=False)
-    out_df_filtered.to_csv(os.path.abspath("outputs/output.txt"), sep=',', index=False)
+    out_df_filtered.to_csv(os.path.abspath("../outputs/output.csv"), index=False)
+    out_df_filtered.to_csv(os.path.abspath("../outputs/output.txt"), sep=',', index=False)
 
     global expression_table
     expression_html = expression_table.to_html(classes='table table-bordered table-striped', index=False)
@@ -175,7 +175,7 @@ def run_gseapy(results):
 
 
 def ai_analysis(data, cell_subtypes, experimental_description):
-    csv_file = os.path.abspath('outputs/output.csv')  # Replace with your actual CSV file path
+    csv_file = os.path.abspath('../outputs/output.csv')  # Replace with your actual CSV file path
     df = pd.read_csv(csv_file)
     # Convert DataFrame to string (if you want to display the entire CSV content as a string)
     csv_string = df.to_string(index=False)
@@ -185,7 +185,7 @@ def ai_analysis(data, cell_subtypes, experimental_description):
         f"Avoid filler statements, mention specific genes and relevant literature, cite your sources in the format of in line citations and at the end of the paper, focus only on immunology pathways, and give a 3 page paper in an IMRAD (introduction, methods, results, and discussion) format.")
     print(response)
     response = str(response.content)
-    output_file = os.path.abspath('outputs/llmoutput.txt')
+    output_file = os.path.abspath('../outputs/llmoutput.txt')
     with open(output_file, 'w') as file:
         file.write(response)
 
@@ -198,7 +198,7 @@ def filter_control(query):
     filtered = []
 
     # Read the DEGs CSV into a DataFrame
-    degs = pd.read_csv("outputs/degs.csv")
+    degs = pd.read_csv("../outputs/degs.csv")
 
     # Iterate through the list of genes
     for gene in genes:
