@@ -128,6 +128,16 @@ def process_diffexp(results):
 def run_gseapy(results):
     results['Rank'] = -np.log10(results.padj) * results.log2FoldChange
     results = results.sort_values('Rank', ascending=False)
+
+    top_10 = results.head(20)
+
+    # Take the bottom 10 rows
+    bottom_10 = results.tail(20)
+
+    # Combine the two subsets into one DataFrame
+    selected_results = pd.concat([top_10, bottom_10])
+
+    selected_results.to_csv(os.path.abspath('outputs/degs.csv'))
     results_html = results.to_html(classes='table table-bordered table-striped', index=False)
 
     ranking = results[['Gene', 'Rank']]

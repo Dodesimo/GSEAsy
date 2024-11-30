@@ -1,0 +1,31 @@
+Term,nes,lead_genes
+Cap-dependent translation initiation,upregulated,EIF3E;RPL12;EIF5;RPL36A;RPL5;RPL4;RPL15;RPL22;RPL26;RPL14;RPL7A;RPL35A;RPL6;EIF3I;RPL29;RPL24;RPL23A;RPL23;RPL36;RPL18A;UBA52;EIF3C;RPL17;RPL30;EIF3G;RPL35;RPL13;RPL37;RPL39;RPLP1;RPL10;RPL27A;RPL10A;RPL11;RPL32;RPL19;RPLP2;RPL9;PABPC1;RPL37A;RPL28;RPL27;RPLP0;RPL13A;RPL18;EIF3B;EIF5B;RPL3;EIF2S1;RPL8;RPL41;RPL38;RPL21;EIF2S2;EIF4E;EIF3K;RPL34
+"Activation of mRNA upon binding of the cap-binding complex and eIFs, and subsequent binding to 43S",upregulated,EIF3E;EIF5;RPS17;RPS5;RPS25;EIF3I;RPS18;RPS3;RPS28;RPS19;RPS2;RPS29;EIF3C;RPS7;EIF3G;FAU;RPS26;RPS9;RPS23;RPSA;RPS15;RPS15A;RPS4X;RPS11;RPS21;PABPC1;RPS24;RPS10;RPS12;RPS8;RPS20;RPS16;RPS27;EIF3B;EIF2S1;RPS14;RPS27A;RPS13;EIF2S2;EIF4E;EIF3K;RPS6;EIF4B;EIF3A;EIF3F;EIF4A1
+Activation of BH3-only proteins,upregulated,BCL2;PPP3CC;DYNLL1;BCL2L11;BBC3;AKT1;BAD;PPP3R1;TFDP1;E2F1;BID;MAPK8;YWHAB
+HIV genome transcription,downregulated,RNMT;NELFCD;GTF2F2;CTDP1;NCBP1;POLR2K;POLR2E;TAF4;CCNT1;NELFE;POLR2H;POLR2L;POLR2F;GTF2E1;POLR2G;GTF2A2;POLR2C;ERCC3;GTF2B;TCEA1;CCNH;RNGTT;CCNT2
+Angiotensin II-stimulated signaling through G-proteins and beta-arrestin,downregulated,EGR1;GRK6;PLCB2;MAP3K4;PRKCD;ITPR1;PLCG2;MAPK1;MAP2K3;MAP2K1;RAF1;GRK5;PLCG1;MAP3K3;PRKCB;PLCL2;ELK1;MAPK9;RHOA
+Protein export,downregulated,SEC63;HSPA5;IMMP1L;SPCS3;SEC61B;SRP72;SRP14;SRPR;SRP19
+NCAM signaling for neurite out-growth,downregulated,SPTBN1;KRAS;FYN;MAPK1;ST8SIA4;HRAS;MAP2K1;SPTAN1;NRAS;RAF1;RPS6KA5
+Signaling by SCF-KIT,downregulated,STAT3;KRAS;FYN;GRAP;CDKN1B;FES;NR4A1;LCK;MAPK1;GSK3B;HRAS;CDKN1A;MAP2K1;PIK3R1;JAK2;STAT5A;LYN;NRAS;RAF1;CBL
+Mitochondrial gene expression,downregulated,PPP3CA;NRF1;GABPA;HCFC1;SP1;CAMK4;PPRC1;TFB2M;GABPB1
+Wnt/calcium/cyclic GMP pathway,downregulated,NFATC3;PPP3CA;PLCB2;PRKCD;NFATC1;ITPR1;PLCG2;NFAT5;FZD5;PLCG1;PRKCB;PLCL2;FZD6;PLCB4;CAMK2D;PDE6D;PLCB3
+Netrin-mediated signaling events,downregulated,FYN;ELMO1;MAPK1;MAP2K1;WASL;PIK3R1;MYO10;TRIO;PLCG1;BCAR1;RHOA;MAP1B
+IGF1 signaling pathway,downregulated,PIK3CG;HRAS;RASA1;FOS;MAP2K1;PIK3R1;RAF1;SHC1;ELK1;SRF
+Regulation of NFAT transcription factors,downregulated,IFNG;JUNB;NFATC3;EGR1;NFATC1;IKZF1;FOS;GBP3;DGKA
+Bioactive peptide-induced signaling pathway,downregulated,STAT3;FYN;MAPK1;HRAS;MAP2K1;PIK3R1;JAK2;STAT5A;RAF1;PLCG1;SHC1;PRKCB
+SHC1 events in ERBB2 signaling,downregulated,KRAS;MAPK1;HRAS;MAP2K1;NRAS;RAF1;SHC1;HBEGF
+Signaling by NGF,downregulated,NFKBIA
+Chronic myeloid leukemia,downregulated,NFKBIA
+MAP kinase signaling pathway,downregulated,NFKBIA
+Interleukin-1 regulation of extracellular matrix,downregulated,NFKBIA;ZFP36;IFNG;SPP1;TNFAIP3;ICAM1;KDM6B;CCL4
+p75 neurotrophin receptor-mediated signaling,downregulated,NFKBIA
+Toll-like receptor signaling pathway regulation,downregulated,NFKBIA;CCL3;SPP1;TNFAIP3;CCL4;IRF7;IRAK2;SQSTM1;MAP3K8;CXCL10;TRAFD1;PIK3R5;CCL5
+Prostate cancer,downregulated,NFKBIA
+Antigen-activated B-cell receptor generation of second messengers,downregulated,NFKBIA;IFITM1
+Interleukin-4 signaling pathway,downregulated,NFKBIA
+"TNF-alpha effects on cytokine activity, cell motility, and apoptosis",downregulated,NFKBIA;TRAF1;TNFAIP3;ICAM1
+Activation of NF-kappaB in B cells,downregulated,NFKBIA
+Toll receptor cascades,downregulated,NFKBIA;TNFAIP3
+Apoptosis,downregulated,NFKBIA;TRAF1;PAK2;IRF7;PSMD4;IRAK2
+Chagas disease,downregulated,NFKBIA;IFNG;CCL3
+Downstream signaling events Of B cell receptor (BCR),downregulated,NFKBIA
