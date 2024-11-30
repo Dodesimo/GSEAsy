@@ -10,7 +10,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from langchain_openai import ChatOpenAI
 import glob
 from dotenv import load_dotenv
-import markdown
+from helpers.rag_helper import create_document_loader, initialize_vector_store, create_template, create_graph, run_graph
 
 load_dotenv()
 
@@ -128,6 +128,16 @@ def process_diffexp(results):
 def run_gseapy(results):
     results['Rank'] = -np.log10(results.padj) * results.log2FoldChange
     results = results.sort_values('Rank', ascending=False)
+
+    top_50 = results.head(50)
+
+    # Take the bottom 10 rows
+    bottom_50 = results.tail(50)
+
+    # Combine the two subsets into one DataFrame
+    selected_results = pd.concat([top_50, bottom_50])
+
+    selected_results.to_csv(os.path.abspath('outputs/degs.csv'))
     results_html = results.to_html(classes='table table-bordered table-striped', index=False)
 
     ranking = results[['Gene', 'Rank']]
@@ -170,11 +180,11 @@ def ai_analysis(data, cell_subtypes, experimental_description):
     # Convert DataFrame to string (if you want to display the entire CSV content as a string)
     csv_string = df.to_string(index=False)
     llm = ChatOpenAI(temperature=0, model="gpt-4o", api_key=os.environ.get("KEY"))
-    response = llm.invoke(
-        f"Given the following CSV of gene groups, whether they are upregulated or downregulated, as well as corresponding genes: \n\n{csv_string}\n\n, as well as that the cell type in question is \n\n{cell_subtypes}\n\n, given that {experimental_description}, propose new mechanisms for why this causes genes to be upregulated and down regulated using other relevant IMMUNOLOGY pathways found from the data provided. "
-        f"Avoid filler statements, mention specific genes and relevant literature, cite your sources in the format of in line citations and at the end of the paper, focus only on immunology pathways, and give a 3 page paper in an IMRAD (introduction, methods, results, and discussion) format.")
-    print(response)
-    response = str(response.content)
+    docs = create_document_loader(cell_subtypes, experimental_description)
+    vector_store = initialize_vector_store()
+    prompt = create_template()
+    graph = create_graph(vector_store, prompt, llm)
+    response = run_graph(graph, csv_string, cell_subtypes, experimental_description)
     output_file = os.path.abspath('outputs/llmoutput.txt')
     with open(output_file, 'w') as file:
         file.write(response)

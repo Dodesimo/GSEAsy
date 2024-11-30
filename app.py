@@ -1,9 +1,9 @@
 import glob
 
 import matplotlib
-from flask import Flask, render_template, url_for, request, send_file
+from flask import Flask
 import os
-from gsea_pipeline import initialize, read_annotation_data, meta_filter_and_adata_append, cell_filter, control_filter, \
+from helpers.gsea_pipeline import initialize, read_annotation_data, meta_filter_and_adata_append, cell_filter, control_filter, \
     run_diffexp, process_diffexp, run_gseapy, ai_analysis, filter_control
 from dotenv import load_dotenv
 import markdown
@@ -11,7 +11,6 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from flask import abort, render_template, request
-from werkzeug.exceptions import HTTPException
 
 matplotlib.use('Agg')
 
